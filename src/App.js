@@ -1,25 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+/* eslint-disable react-hooks/exhaustive-deps */
+import SearchComponent from "./Components/SearchComponent";
+import JetstreamsComponent from "./Components/JetstreamsComponent";
+import FooterComponent from "./Components/FooterComponent";
+import ErrorSnackBar from "./Components/ErrorSnackBar";
+import FAB from "./Components/FAB";
+import data from "./connectionconfig.json";
+import { useDispatch } from "react-redux";
+import { setUpConnection } from "./Store/streams";
+const App = () => {
+  const dispatch = useDispatch();
+  dispatch(setUpConnection(data.serverUrl));
 
-function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <SearchComponent></SearchComponent>
+      <JetstreamsComponent></JetstreamsComponent>
+      <FooterComponent></FooterComponent>
+      <FAB></FAB>
+      <ErrorSnackBar></ErrorSnackBar>
+    </>
   );
-}
+};
 
 export default App;
