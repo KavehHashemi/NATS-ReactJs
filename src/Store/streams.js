@@ -4,12 +4,8 @@ import { connect } from "nats.ws";
 const initialState = {
   jetstreamManager: undefined,
   jetstreams: [],
-  // a: { key: {} },
   searchResults: [],
-  // currentJetstream: null,
   consumers: [],
-  // connectionStatus: null,
-  // jetstreamInfo: null,
   errorMessage: null,
 };
 
@@ -21,22 +17,6 @@ export const setUpConnection = createAsyncThunk(
     return jetstreamManager;
   }
 );
-
-// const connectToServer = createAsyncThunk(
-//   "streams/connectToServer",
-//   async (serverUrl, thunkAPI) => {
-//     const response = await connect({ servers: [serverUrl] });
-//     return response;
-//   }
-// );
-
-// const setJetstreamManager = createAsyncThunk(
-//   "streams/setJetstreamManager",
-//   async (natsConnection, thunkAPI) => {
-//     const response = await natsConnection.jetstreamManager();
-//     return response;
-//   }
-// );
 
 export const listJetstreams = createAsyncThunk(
   "streams/listJetstreams",
@@ -98,28 +78,7 @@ export const streamsSlice = createSlice({
     builder
       .addCase(setUpConnection.fulfilled, (state, action) => {
         state.jetstreamManager = action.payload;
-        // state.connectionStatus = "Connected";
-        // console.log(state.jetstreamManager);
       })
-      // .addCase(connectToServer.pending, (state) => {
-      //   state.connectionStatus = `Connecting...`;
-      // })
-      // .addCase(connectToServer.fulfilled, (state, action) => {
-      //   state.connectionStatus = `Connected`;
-      //   console.log("connectionStatus");
-      //   console.log(state.connectionStatus);
-      // })
-      // .addCase(connectToServer.rejected, (state, action) => {
-      //   state.errorMessage = action.error.message;
-      //   state.connectionStatus = `Unable to connect`;
-      // })
-      // .addCase(setJetstreamManager.fulfilled, (state, action) => {
-      //   state.jetstreamManager = action.payload;
-      //   console.log(action);
-      // })
-      // .addCase(setJetstreamManager.rejected, (state, action) => {
-      //   state.errorMessage = action.error.message;
-      // })
 
       .addCase(listJetstreams.fulfilled, (state, action) => {
         state.jetstreams = action.payload;

@@ -6,13 +6,6 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 
 const InfoDialog = ({ open, handleShow, jetstream }) => {
-  // const consumerArray = [];
-  // let counter = 0;
-  // consumers?.map((c) => {
-  //   counter++;
-  //   consumerArray.push(<span key={counter}>{c.name}</span>);
-  // });
-
   return (
     <Dialog
       fullWidth={true}
