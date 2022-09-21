@@ -4,6 +4,7 @@ import React from "react";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
+import CloseIcon from "@mui/icons-material/Close";
 
 const InfoDialog = ({ open, handleShow, jetstream }) => {
   return (
@@ -13,7 +14,15 @@ const InfoDialog = ({ open, handleShow, jetstream }) => {
       open={open}
       onClose={() => handleShow(false)}
     >
-      <DialogTitle>{`${jetstream?.config.name}'s details`}</DialogTitle>
+      <DialogTitle>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          {`${jetstream?.config.name}'s details`}
+          <CloseIcon
+            style={{ cursor: "pointer" }}
+            onClick={() => handleShow(false)}
+          ></CloseIcon>
+        </div>
+      </DialogTitle>
       <DialogContent>
         <div id="details-container">
           <p>consumers: {}</p>
