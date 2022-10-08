@@ -20,7 +20,6 @@ const AddDialog = ({ open, openHandler }) => {
   const { jetstreamManager } = useSelector((state) => state.streams);
 
   const [jetstreamName, setJetstreamName] = useState("");
-  // const [subject, setSubject] = useState("");
   const [subjects, setSubjects] = useState([]);
 
   const [storage, setStorage] = useState("file");
@@ -62,7 +61,6 @@ const AddDialog = ({ open, openHandler }) => {
   };
 
   const setMultipleSubjects = (subjectsArray) => {
-    console.log(subjectsArray);
     let array = subjectsArray.split(",");
     setSubjects(array);
   };
@@ -104,9 +102,7 @@ const AddDialog = ({ open, openHandler }) => {
               label="Subject"
               type="text"
               variant="outlined"
-              // value={subject}
               value={subjects}
-              // onChange={(e) => setSubject(e.target.value)}
               onChange={(e) => setMultipleSubjects(e.target.value)}
             />
           </div>
