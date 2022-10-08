@@ -26,6 +26,40 @@ export const listJetstreams = createAsyncThunk(
   }
 );
 
+export const addNewJetstream = createAsyncThunk(
+  "streams/addNewStream",
+  async (config, thunkAPI) => {
+    const StreamConfig = {
+      name: config.name,
+      subjects: config.subjects,
+      storage: config.storage,
+      num_replicas: config.replication,
+      retention: config.retentionPolicy,
+      discard: config.discardPolicy,
+      max_msgs: config.messagesLimit,
+      max_msgs_per_subject: config.perSubjectMessagesLimit,
+      max_bytes: config.totalStreamsize,
+      max_age: config.messageTTL * 1000000000, //seconds to NANOseconds
+      max_msg_size: config.maxMessageSize,
+      duplicate_window: config.duplicateTrackingTimeWindow * 1000000000, //seconds to NANOseconds
+      allow_rollup_hdrs: config.allowMessageRollUps,
+      deny_delete: config.allowMessageDeletion,
+      deny_purge: config.allowPurge,
+    };
+    // console.log(StreamConfig);
+    const response = await config.jetstreamManager.streams.add(StreamConfig);
+    return response;
+  }
+);
+
+export const getJetstreamInfo = createAsyncThunk(
+  "streams/getStremInfo",
+  async (config, thunkAPI) => {
+    const response = await config.jsm.streams.info(config.name);
+    return response.config;
+  }
+);
+
 export const listConsumers = createAsyncThunk(
   "streams/listConsumers",
   async (config, thunkAPI) => {
@@ -36,22 +70,11 @@ export const listConsumers = createAsyncThunk(
   }
 );
 
-export const addNewJetstream = createAsyncThunk(
-  "streams/addNewStream",
+export const purgeStream = createAsyncThunk(
+  "streams/purgeStream",
   async (config, thunkAPI) => {
-    const response = await config.jetstreamManager.streams.add({
-      name: config.name,
-      subjects: config.subjects,
-    });
+    const response = await config.jetstreamManager.streams.purge(config.stream);
     return response;
-  }
-);
-
-export const getJetstreamInfo = createAsyncThunk(
-  "streams/getStremInfo",
-  async (config, thunkAPI) => {
-    const response = await config.jsm.streams.info(config.name);
-    return response.config;
   }
 );
 
@@ -90,13 +113,17 @@ export const streamsSlice = createSlice({
       })
       .addCase(addNewJetstream.rejected, (state, action) => {
         state.errorMessage = action.error.message;
+        // console.log(action);
       })
       .addCase(getJetstreamInfo.fulfilled, (state, action) => {
         state.jetstreamInfo = action.payload;
       })
       .addCase(listConsumers.fulfilled, (state, action) => {
-        console.log(action.payload);
+        // console.log(action.payload);
         state.consumers = action.payload;
+      })
+      .addCase(purgeStream.fulfilled, (state, action) => {
+        console.log("stream purged");
       });
   },
 });

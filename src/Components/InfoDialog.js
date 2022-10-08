@@ -5,6 +5,7 @@ import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import CloseIcon from "@mui/icons-material/Close";
+import ConsumersComponent from "./ConsumersComponent";
 
 const InfoDialog = ({ open, handleShow, jetstream }) => {
   return (
@@ -25,7 +26,9 @@ const InfoDialog = ({ open, handleShow, jetstream }) => {
       </DialogTitle>
       <DialogContent>
         <div id="details-container">
-          <p>consumers: {}</p>
+          {/* <ConsumersComponent
+            jetstream={jetstream.config.name}
+          ></ConsumersComponent> */}
           <p>name: {jetstream?.config.name}</p>
           <p onClick={(e) => console.log(jetstream?.config.subjects)}>
             subjects: {jetstream?.config.subjects}
@@ -44,11 +47,11 @@ const InfoDialog = ({ open, handleShow, jetstream }) => {
           <p>number of replicas: {jetstream?.config.num_replicas}</p>
           <p>duplicate window: {jetstream?.config.duplicate_window}</p>
           <p>sealed: {jetstream?.config.sealed?.toString()}</p>
-          <p>duplicate window: {jetstream?.config.duplicate_window}</p>
           <p>deny delete: {jetstream?.config.deny_delete?.toString()}</p>
           <p>deny purge: {jetstream?.config.deny_purge?.toString()}</p>
           <p>
-            allow rollup headers: {jetstream?.allow_rollup_hdrs?.toString()}
+            allow rollup headers:{" "}
+            {jetstream?.config.allow_rollup_hdrs?.toString()}
           </p>
         </div>
       </DialogContent>
