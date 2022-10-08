@@ -144,20 +144,24 @@ const AddDialog = ({ open, openHandler }) => {
               <FormLabel>Retention Policy</FormLabel>
               <RadioGroup
                 row
+                className="radio-group-font"
                 value={retentionPolicy}
                 onChange={(e) => setRetentionPolicy(e.target.value)}
               >
                 <FormControlLabel
+                  className="radio-group-font"
                   value="limits"
                   control={<Radio size="small" />}
                   label="Limits"
                 />
                 <FormControlLabel
+                  className="radio-group-font"
                   value="interest"
                   control={<Radio size="small" />}
                   label="Interest"
                 />
                 <FormControlLabel
+                  className="radio-group-font"
                   value="workqueue"
                   control={<Radio size="small" />}
                   label="Work Queue"

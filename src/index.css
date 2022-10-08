@@ -261,13 +261,26 @@ code {
 .addjet-section {
   display: flex;
   flex-wrap: wrap;
+  gap: 1rem;
   justify-content: space-around;
+  margin-bottom: 1rem;
+}
+
+/* .addjet-section > div {
+  margin-bottom: 8px;
+} */
+
+.addjet-section:last-child {
+  margin-bottom: 0;
 }
 
 .radio-group {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  border: 1px solid #dbdbdb;
+  border-radius: 10px;
+  padding: 1rem;
 }
 
 .switch-group {
@@ -275,6 +288,10 @@ code {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  border: 1px solid #dbdbdb;
+  border-radius: 10px;
+  padding: 1rem;
+  width: 25%;
 }
 
 .subjects {
