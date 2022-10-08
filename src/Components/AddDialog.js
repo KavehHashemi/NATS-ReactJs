@@ -21,6 +21,7 @@ const AddDialog = ({ open, openHandler }) => {
 
   const [jetstreamName, setJetstreamName] = useState("");
   const [subject, setSubject] = useState("");
+  const [subjects, setSubjects] = useState([]);
 
   const [storage, setStorage] = useState("file");
   const [replication, setReplication] = useState(1);
@@ -41,8 +42,8 @@ const AddDialog = ({ open, openHandler }) => {
     let config = {
       jetstreamManager: jetstreamManager,
       name: jetstreamName,
-      subjects: [subject],
-
+      // subjects: [subject],
+      subjects: subjects,
       storage: storage,
       replication: replication,
       retentionPolicy: retentionPolicy,
@@ -58,6 +59,12 @@ const AddDialog = ({ open, openHandler }) => {
       allowPurge: !allowPurge,
     };
     dispatch(addNewJetstream(config));
+  };
+
+  const setMultipleSubjects = (subjectsArray) => {
+    console.log(subjectsArray);
+    let array = subjectsArray.split(",");
+    setSubjects(array);
   };
 
   return (
@@ -97,8 +104,10 @@ const AddDialog = ({ open, openHandler }) => {
               label="Subject"
               type="text"
               variant="outlined"
-              value={subject}
-              onChange={(e) => setSubject(e.target.value)}
+              // value={subject}
+              value={subjects}
+              // onChange={(e) => setSubject(e.target.value)}
+              onChange={(e) => setMultipleSubjects(e.target.value)}
             />
           </div>
           <div className="addjet-section">
