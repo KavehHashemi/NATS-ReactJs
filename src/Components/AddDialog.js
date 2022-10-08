@@ -20,7 +20,7 @@ const AddDialog = ({ open, openHandler }) => {
   const { jetstreamManager } = useSelector((state) => state.streams);
 
   const [jetstreamName, setJetstreamName] = useState("");
-  const [subject, setSubject] = useState("");
+  // const [subject, setSubject] = useState("");
   const [subjects, setSubjects] = useState([]);
 
   const [storage, setStorage] = useState("file");
@@ -299,7 +299,7 @@ const AddDialog = ({ open, openHandler }) => {
             addJetstream();
             openHandler(false);
             setJetstreamName("");
-            setSubject("");
+            setSubjects([]);
           }}
         >
           Add
