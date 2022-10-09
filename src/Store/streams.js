@@ -78,6 +78,17 @@ export const purgeStream = createAsyncThunk(
   }
 );
 
+export const editStream = createAsyncThunk(
+  "streams/editStream",
+  async (config, thunkAPI) => {
+    const response = await config.jetstreamManager.streams.update(
+      config.stream,
+      { subjects: config.subjects }
+    );
+    return response;
+  }
+);
+
 export const streamsSlice = createSlice({
   name: "streams",
   initialState,
@@ -106,6 +117,7 @@ export const streamsSlice = createSlice({
       .addCase(listJetstreams.fulfilled, (state, action) => {
         state.jetstreams = action.payload;
         state.searchResults = state.jetstreams;
+        console.log("listed");
       })
       .addCase(addNewJetstream.fulfilled, (state, action) => {
         state.jetstreams.push(action.payload);
@@ -124,6 +136,9 @@ export const streamsSlice = createSlice({
       })
       .addCase(purgeStream.fulfilled, (state, action) => {
         console.log("stream purged");
+      })
+      .addCase(editStream.fulfilled, (state, action) => {
+        // console.log(action.payload.config.subjects);
       });
   },
 });

@@ -7,12 +7,15 @@ import InfoDialog from "./InfoDialog";
 import PurgeDialog from "./PurgeDialog";
 import DeleteIcon from "@mui/icons-material/Delete";
 import InfoIcon from "@mui/icons-material/InfoOutlined";
-import Clearicon from "@mui/icons-material/CleaningServicesOutlined";
+import ClearIcon from "@mui/icons-material/CleaningServicesOutlined";
+import EditIcon from "@mui/icons-material/Edit";
+import EditDialog from "./EditDialog";
 
 const JetstreamComponent = ({ jetstream }) => {
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [showInfoDialog, setShowInfoDialog] = useState(false);
   const [showPurgeDialog, setShowPurgeDialog] = useState(false);
+  const [showEditDialog, setShowEditDialog] = useState(false);
 
   const handleDeleteDialog = (show) => {
     setShowDeleteDialog(show);
@@ -22,6 +25,9 @@ const JetstreamComponent = ({ jetstream }) => {
   };
   const handlePurgeDialog = (show) => {
     setShowPurgeDialog(show);
+  };
+  const handleEditDialog = (show) => {
+    setShowEditDialog(show);
   };
 
   const subjectsArray = [];
@@ -41,12 +47,18 @@ const JetstreamComponent = ({ jetstream }) => {
         <div className="jetstream-card-header">
           <div className="jetstream-name">{jetstream.config.name}</div>
           <div className="jetstream-actions">
-            <Clearicon
+            <EditIcon
+              className="card-icon"
+              fontSize="small"
+              sx={{ color: "limegreen" }}
+              onClick={() => handleEditDialog(true)}
+            ></EditIcon>
+            <ClearIcon
               className="card-icon"
               fontSize="small"
               sx={{ color: "orange" }}
               onClick={() => handlePurgeDialog(true)}
-            ></Clearicon>
+            ></ClearIcon>
             <InfoIcon
               className="card-icon"
               fontSize="small"
@@ -85,6 +97,11 @@ const JetstreamComponent = ({ jetstream }) => {
         open={showPurgeDialog}
         handleShow={handlePurgeDialog}
       ></PurgeDialog>
+      <EditDialog
+        jetstream={jetstream}
+        open={showEditDialog}
+        handleShow={handleEditDialog}
+      ></EditDialog>
     </>
   );
 };
