@@ -14,6 +14,8 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import Switch from "@mui/material/Switch";
+import Tooltip from "@mui/material/Tooltip";
+import InfoIcon from "@mui/icons-material/InfoOutlined";
 
 const AddDialog = ({ open, openHandler }) => {
   const dispatch = useDispatch();
@@ -79,36 +81,53 @@ const AddDialog = ({ open, openHandler }) => {
         <FormControl
           style={{
             display: "flex",
-            justifyContent: "center",
             flexWrap: "wrap",
+            justifyContent: "center",
           }}
         >
           <div className="addjet-section">
-            <TextField
-              autoFocus
-              margin="normal"
-              size="small"
-              label="Jetstream Name"
-              type="text"
-              variant="outlined"
-              sx={{ width: "45%" }}
-              value={jetstreamName}
-              onChange={(e) => setJetstreamName(e.target.value)}
-            />
-            <TextField
-              margin="normal"
-              size="small"
-              sx={{ width: "45%" }}
-              label="Subject"
-              type="text"
-              variant="outlined"
-              value={subjects}
-              onChange={(e) => setMultipleSubjects(e.target.value)}
-            />
+            <div className="addjet-name">
+              <TextField
+                autoFocus
+                margin="normal"
+                size="small"
+                fullWidth
+                label="Jetstream Name"
+                type="text"
+                variant="outlined"
+                // sx={{ width: "45%" }}
+                value={jetstreamName}
+                onChange={(e) => setJetstreamName(e.target.value)}
+              />
+            </div>
+            <div className="addjet-subject">
+              <TextField
+                margin="normal"
+                size="small"
+                fullWidth
+                // sx={{ width: "100%" }}
+                label="Subject"
+                type="text"
+                variant="outlined"
+                value={subjects}
+                onChange={(e) => setMultipleSubjects(e.target.value)}
+              />
+              <Tooltip title="Streams consume messages from subjects, this is a comma separated list that can include wildcards.">
+                <InfoIcon fontSize="small" sx={{ color: "skyblue" }}></InfoIcon>
+              </Tooltip>
+            </div>
           </div>
           <div className="addjet-section">
             <div className="radio-group">
-              <FormLabel>Storage</FormLabel>
+              <div className="radio-group-header">
+                <FormLabel>Storage</FormLabel>
+                <Tooltip title="Streams are stored on the server, this can be one of many backends and all are usable in clustering mode.">
+                  <InfoIcon
+                    fontSize="small"
+                    sx={{ color: "skyblue" }}
+                  ></InfoIcon>
+                </Tooltip>
+              </div>
               <RadioGroup
                 row
                 value={storage}
@@ -127,7 +146,15 @@ const AddDialog = ({ open, openHandler }) => {
               </RadioGroup>
             </div>
             <div className="radio-group">
-              <FormLabel>Discard Policy</FormLabel>
+              <div className="radio-group-header">
+                <FormLabel>Discard Policy</FormLabel>
+                <Tooltip title="Once the Stream reach it's limits of size or messages the New policy will prevent further messages from being added while Old will delete old messages.">
+                  <InfoIcon
+                    fontSize="small"
+                    sx={{ color: "skyblue" }}
+                  ></InfoIcon>
+                </Tooltip>
+              </div>
               <RadioGroup
                 row
                 value={discardPolicy}
@@ -146,7 +173,15 @@ const AddDialog = ({ open, openHandler }) => {
               </RadioGroup>
             </div>
             <div className="radio-group">
-              <FormLabel>Retention Policy</FormLabel>
+              <div className="radio-group-header">
+                <FormLabel>Retention Policy</FormLabel>
+                <Tooltip title="Messages are retained either based on limits like size and age (Limits), as long as there are Consumers (Interest) or until any worker processed them (Work Queue).">
+                  <InfoIcon
+                    fontSize="small"
+                    sx={{ color: "skyblue" }}
+                  ></InfoIcon>
+                </Tooltip>
+              </div>
               <RadioGroup
                 row
                 className="radio-group-font"
@@ -175,94 +210,130 @@ const AddDialog = ({ open, openHandler }) => {
             </div>
           </div>
           <div className="addjet-section">
-            <TextField
-              margin="normal"
-              size="small"
-              sx={{ width: "30%" }}
-              label="Replication"
-              type="number"
-              fullWidth
-              variant="outlined"
-              value={replication}
-              onChange={(e) => setReplication(e.target.value)}
-            />
-
-            <TextField
-              margin="normal"
-              size="small"
-              sx={{ width: "30%" }}
-              label="Messages Limit"
-              type="number"
-              fullWidth
-              variant="outlined"
-              value={messagesLimit}
-              onChange={(e) => setMessagesLimit(e.target.value)}
-            />
-
-            <TextField
-              margin="normal"
-              size="small"
-              sx={{ width: "30%" }}
-              label="Per Subject Messages Limit"
-              type="number"
-              fullWidth
-              variant="outlined"
-              value={perSubjectMessagesLimit}
-              onChange={(e) => setPerSubjectMessagesLimit(e.target.value)}
-            />
-
-            <TextField
-              margin="normal"
-              size="small"
-              sx={{ width: "30%" }}
-              label="Total Stream Size"
-              type="number"
-              fullWidth
-              variant="outlined"
-              value={totalStreamsize}
-              onChange={(e) => setTotalStreamsize(e.target.value)}
-            />
-
-            <TextField
-              margin="normal"
-              size="small"
-              sx={{ width: "30%" }}
-              label="Message TTL"
-              type="number"
-              fullWidth
-              variant="outlined"
-              value={messageTTL}
-              onChange={(e) => setMessageTTL(e.target.value)}
-            />
-
-            <TextField
-              margin="normal"
-              size="small"
-              sx={{ width: "30%" }}
-              label="Max Message Size"
-              type="number"
-              fullWidth
-              variant="outlined"
-              value={maxMessageSize}
-              onChange={(e) => setMaxMessageSize(e.target.value)}
-            />
-
-            <TextField
-              margin="normal"
-              size="small"
-              sx={{ width: "30%" }}
-              label="Duplicate Tracking Time Window"
-              type="number"
-              // placeholder="0h1m2s"
-              fullWidth
-              variant="outlined"
-              value={duplicateTrackingTimeWindow}
-              onChange={(e) => setDuplicateTrackingTimeWindow(e.target.value)}
-            />
+            <div className="textfiled-group">
+              <TextField
+                margin="normal"
+                size="small"
+                // sx={{ width: "25%" }}
+                label="Replication"
+                type="number"
+                fullWidth
+                variant="outlined"
+                value={replication}
+                onChange={(e) => setReplication(e.target.value)}
+              />
+              <Tooltip title="When clustered, defines how many replicas of the data to store.">
+                <InfoIcon fontSize="small" sx={{ color: "skyblue" }}></InfoIcon>
+              </Tooltip>
+            </div>
+            <div className="textfiled-group">
+              <TextField
+                margin="normal"
+                size="small"
+                // sx={{ width: "25%" }}
+                label="Messages Limit"
+                type="number"
+                fullWidth
+                variant="outlined"
+                value={messagesLimit}
+                onChange={(e) => setMessagesLimit(e.target.value)}
+              />
+              <Tooltip title="Defines the amount of messages to keep in the store for this Stream, when exceeded oldest messages are removed, -1 for unlimited.">
+                <InfoIcon fontSize="small" sx={{ color: "skyblue" }}></InfoIcon>
+              </Tooltip>
+            </div>
+            <div className="textfiled-group">
+              <TextField
+                margin="normal"
+                size="small"
+                // sx={{ width: "25%" }}
+                label="Per Subject Messages Limit"
+                type="number"
+                fullWidth
+                variant="outlined"
+                value={perSubjectMessagesLimit}
+                onChange={(e) => setPerSubjectMessagesLimit(e.target.value)}
+              />
+              <Tooltip title=" Defines the amount of messages to keep in the store for this Stream per unique subject, when exceeded oldest messages are removed, -1 for unlimited.">
+                <InfoIcon fontSize="small" sx={{ color: "skyblue" }}></InfoIcon>
+              </Tooltip>
+            </div>
+            <div className="textfiled-group">
+              <TextField
+                margin="normal"
+                size="small"
+                // sx={{ width: "25%" }}
+                label="Total Stream Size"
+                type="number"
+                fullWidth
+                variant="outlined"
+                value={totalStreamsize}
+                onChange={(e) => setTotalStreamsize(e.target.value)}
+              />
+              <Tooltip title="Defines the combined size of all messages in a Stream, when exceeded messages are removed or new ones are rejected, -1 for unlimited.">
+                <InfoIcon fontSize="small" sx={{ color: "skyblue" }}></InfoIcon>
+              </Tooltip>
+            </div>
+            <div className="textfiled-group">
+              <TextField
+                margin="normal"
+                size="small"
+                // sx={{ width: "25%" }}
+                label="Message TTL"
+                type="number"
+                fullWidth
+                variant="outlined"
+                value={messageTTL}
+                onChange={(e) => setMessageTTL(e.target.value)}
+              />
+              <Tooltip title="Defines the oldest messages that can be stored in the Stream, any messages older than this period will be removed, -1 for unlimited.">
+                <InfoIcon fontSize="small" sx={{ color: "skyblue" }}></InfoIcon>
+              </Tooltip>
+            </div>
+            <div className="textfiled-group">
+              <TextField
+                margin="normal"
+                size="small"
+                // sx={{ width: "25%" }}
+                label="Max Message Size"
+                type="number"
+                fullWidth
+                variant="outlined"
+                value={maxMessageSize}
+                onChange={(e) => setMaxMessageSize(e.target.value)}
+              />
+              <Tooltip title="Defines the maximum size any single message may be to be accepted by the Stream.">
+                <InfoIcon fontSize="small" sx={{ color: "skyblue" }}></InfoIcon>
+              </Tooltip>
+            </div>
+            <div className="textfiled-group">
+              <TextField
+                margin="normal"
+                size="small"
+                // sx={{ width: "25%" }}
+                label="Duplicate Tracking Time Window"
+                type="number"
+                fullWidth
+                variant="outlined"
+                value={duplicateTrackingTimeWindow}
+                onChange={(e) => setDuplicateTrackingTimeWindow(e.target.value)}
+              />
+              <Tooltip title="Duplicate messages are identified by the Msg-Id headers and tracked within a window of this size.">
+                <InfoIcon fontSize="small" sx={{ color: "skyblue" }}></InfoIcon>
+              </Tooltip>
+            </div>
           </div>
           <div className="addjet-section">
             <div className="switch-group">
-              <FormLabel>Allow Message Roll-Ups</FormLabel>
+              <div className="radio-group-header">
+                <FormLabel>Allow Message Roll-Ups</FormLabel>
+                <Tooltip title="Storage Type">
+                  <InfoIcon
+                    fontSize="small"
+                    sx={{ color: "skyblue" }}
+                  ></InfoIcon>
+                </Tooltip>
+              </div>
               <Switch
                 size="small"
                 checked={allowMessageRollUps}
@@ -270,7 +341,15 @@ const AddDialog = ({ open, openHandler }) => {
               ></Switch>
             </div>
             <div className="switch-group">
-              <FormLabel>Allow Message Deletion</FormLabel>
+              <div className="radio-group-header">
+                <FormLabel>Allow Message Deletion</FormLabel>
+                <Tooltip title="Storage Type">
+                  <InfoIcon
+                    fontSize="small"
+                    sx={{ color: "skyblue" }}
+                  ></InfoIcon>
+                </Tooltip>
+              </div>
               <Switch
                 size="small"
                 checked={allowMessageDeletion}
@@ -278,7 +357,15 @@ const AddDialog = ({ open, openHandler }) => {
               ></Switch>
             </div>
             <div className="switch-group">
-              <FormLabel>Allow Purge</FormLabel>
+              <div className="radio-group-header">
+                <FormLabel>Allow Purge</FormLabel>
+                <Tooltip title="Storage Type">
+                  <InfoIcon
+                    fontSize="small"
+                    sx={{ color: "skyblue" }}
+                  ></InfoIcon>
+                </Tooltip>
+              </div>
               <Switch
                 size="small"
                 checked={allowPurge}
